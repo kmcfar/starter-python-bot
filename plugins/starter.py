@@ -43,7 +43,7 @@ def process_message(data):
     if p_bot_time.match(data['text']):
 	output.append(data['channel'], sched.add_cron_job(job_function,  minute='0-59'))
 
-    if p_bot_hi.match(data['text']):
+    elif p_bot_hi.match(data['text']):
         outputs.append([data['channel'], "{}".format(random.choice(greetings))])
 
     elif p_bot_joke.match(data['text']):
