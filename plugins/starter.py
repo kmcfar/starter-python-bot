@@ -2,9 +2,6 @@ import time
 import re
 import random
 import logging
-import datetime
-import time
-from apscheduler.scheduler import Scheduler
 crontable = []
 outputs = []
 attachments = []
@@ -19,16 +16,6 @@ help_text = "{}\n{}\n{}\n{}\n{}\n{}".format(
     "`@<your bot's name>` to demonstrate detecting a mention.",
     "`pybot help` to see this again.")
 
-# Start the scheduler
-sched = Scheduler()
-sched.daemonic = False
-sched.start()
-
-def job_function():
-    print("Hello World")
-    print(datetime.datetime.now())
-    time.sleep(20)
-
 # regular expression patterns for string matching
 p_bot_time = re.compile("pybot[\s]*time")
 p_bot_hi = re.compile("pybot[\s]*hi")
@@ -40,10 +27,7 @@ def process_message(data):
     logging.debug("process_message:data: {}".format(data))
     
     # Schedules job_function to be run once each minute
-    if p_bot_time.match(data['text']):
-	outputs.append([data['channel'], sched.add_cron_job(job_function,  minute='0-59')])
-
-    elif p_bot_hi.match(data['text']):
+    if p_bot_hi.match(data['text']):
         outputs.append([data['channel'], "{}".format(random.choice(greetings))])
 
     elif p_bot_joke.match(data['text']):
