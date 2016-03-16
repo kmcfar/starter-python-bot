@@ -29,9 +29,6 @@ def job_function():
     print(datetime.datetime.now())
     time.sleep(20)
 
-# Schedules job_function to be run once each minute
-sched.add_cron_job(job_function,  minute='0-59')
-
 # regular expression patterns for string matching
 p_bot_hi = re.compile("pybot[\s]*hi")
 p_bot_joke = re.compile("pybot[\s]*joke")
@@ -40,6 +37,10 @@ p_bot_help = re.compile("pybot[\s]*help")
 
 def process_message(data):
     logging.debug("process_message:data: {}".format(data))
+    
+    # Schedules job_function to be run once each minute
+    if p_bot_time.match(data['text']):
+	output.append(data['channel'], sched.add_cron_job(job_function,  minute='0-59'))
 
     if p_bot_hi.match(data['text']):
         outputs.append([data['channel'], "{}".format(random.choice(greetings))])
