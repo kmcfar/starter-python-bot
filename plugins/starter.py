@@ -30,6 +30,7 @@ def job_function():
     time.sleep(20)
 
 # regular expression patterns for string matching
+p_bot_time = re.compile("pybot[\s]*time")
 p_bot_hi = re.compile("pybot[\s]*hi")
 p_bot_joke = re.compile("pybot[\s]*joke")
 p_bot_attach = re.compile("pybot[\s]*attachment")
