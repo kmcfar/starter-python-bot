@@ -41,7 +41,7 @@ def process_message(data):
     
     # Schedules job_function to be run once each minute
     if p_bot_time.match(data['text']):
-	output.append(data['channel'], sched.add_cron_job(job_function,  minute='0-59'))
+	outputs.append([data['channel'], sched.add_cron_job(job_function,  minute='0-59')])
 
     elif p_bot_hi.match(data['text']):
         outputs.append([data['channel'], "{}".format(random.choice(greetings))])
